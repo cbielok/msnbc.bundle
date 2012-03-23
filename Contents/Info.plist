@@ -21,6 +21,10 @@
 		<string>MP3</string>
 		<string>AAC</string>
 	</array>
+	<key>PlexClientPlatformExclusions</key>
+	<string>Roku</string>
+	<key>PlexClientPlatforms</key>
+	<string>*</string>
 	<key>PlexFrameworkVersion</key>
 	<string>2</string>
 	<key>PlexMediaContainer</key>
@@ -28,8 +32,6 @@
 		<string>FLV</string>
 		<string>M4V</string>
 	</array>
-	<key>PlexClientPlatforms</key>
-	<string>*</string>
 	<key>PlexPluginMode</key>
 	<string>AlwaysOn</string>
 	<key>PlexVideoCodec</key>
