@@ -58,7 +58,7 @@ def GetThumb(path):
 def GetVideo(sender, episodeid):
   path = "http://www.msnbc.msn.com/default.cdnx/id/%s/displaymode/1157?t=.flv"%episodeid
   return Redirect(path)
-
+  
 def GetLatestEpisode(sender, path):
   return Redirect(XML.ElementFromURL('http://podcastfeeds.nbcnews.com/audio/podcast/%s.xml'%path).xpath('//enclosure')[0].get('url'))
 
@@ -68,8 +68,12 @@ def GetVideosRSS(sender, name, title2):
   for video in XML.ElementFromURL(name, errors="ignore").xpath('//item', namespaces=MSNBC_NAMESPACE):
     if video.find('link').text.startswith('http://ads') == False :
       title = video.find('title').text
-      episodeid = video.find('link').text.split('#')[1]
-    
+      link = video.find('link').text
+      if '#' in link:
+        episodeid = link.split('#')[1]
+      else:
+        episodeid = link.split('/')[-2]
+
       if title.count("Presented By:") > 0:
         continue
       date = Datetime.ParseDate(video.find('pubDate').text).strftime('%a %b %d, %Y')
