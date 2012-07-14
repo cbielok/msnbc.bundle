@@ -50,6 +50,7 @@ def StripTags(str):
 
 def GetThumb(path):
   try:
+    path = path.replace('.thumb.jpg', '.ss_full.jpg')
     image = HTTP.Request(path, cacheTime=CACHE_1MONTH).content
     return DataObject(image, 'image/jpeg')
   except:
