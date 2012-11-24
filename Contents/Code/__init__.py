@@ -40,6 +40,7 @@ def MainMenu():
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Daily Rundown"), name=MSNBC_URL + '34419168/device/rss/vp/3096434/rss.xml', title2='Daily Rundown'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="MSNBC TV"), name=MSNBC_URL + '18424721/device/rss/vp/3096434/rss.xml', title2='MSNBC TV'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Andrea Mitchell Reports"), name=MSNBC_URL + '34510812/device/rss/vp/3096434/rss.xml', title2='Andrea Mitchell Reports'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Melissa Harris-Perry"), name=MSNBC_URL + '46404075/device/rss/vp/47722962', title2='Melissa Harris-Perry'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Dylan Ratigan Show"), name=MSNBC_URL + '34419165/device/rss/vp/3096434/rss.xml', title2='The Dylan Ratigan Show'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Last Word"), name=MSNBC_URL + '38865210/device/rss/vp/3096434/rss.xml', title2='The Last Word'))
   return dir
