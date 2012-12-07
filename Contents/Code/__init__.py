@@ -35,14 +35,22 @@ def MainMenu():
   dir.Append(Function(DirectoryItem(Dateline,       title="Dateline", thumb=R('dateline.jpeg'))))
   dir.Append(Function(DirectoryItem(ZeitGeist,      title="ZeitGeist", thumb=R('zeitgeist.png'))))
   dir.Append(Function(DirectoryItem(Hardball,       title="Hardball", thumb=R('hardball.jpeg'))))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Politics Nation"), name=MSNBC_URL + '47728749/device/rss/vp/45755884/rss.xml', title2='Politics Nation'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Ed Show"), name=MSNBC_URL + '30012522/device/rss/vp/3096434/rss.xml', title2='The Ed Show'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Way Too Early"), name=MSNBC_URL + '32178079/device/rss/vp/3096434/rss.xml', title2='Way Too Early'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Daily Rundown"), name=MSNBC_URL + '34419168/device/rss/vp/3096434/rss.xml', title2='Daily Rundown'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="MSNBC TV"), name=MSNBC_URL + '18424721/device/rss/vp/3096434/rss.xml', title2='MSNBC TV'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Andrea Mitchell Reports"), name=MSNBC_URL + '34510812/device/rss/vp/3096434/rss.xml', title2='Andrea Mitchell Reports'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Melissa Harris-Perry"), name=MSNBC_URL + '46404075/device/rss/vp/47722962', title2='Melissa Harris-Perry'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Dylan Ratigan Show"), name=MSNBC_URL + '34419165/device/rss/vp/3096434/rss.xml', title2='The Dylan Ratigan Show'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Last Word"), name=MSNBC_URL + '38865210/device/rss/vp/3096434/rss.xml', title2='The Last Word'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Up With Chris Hayes"), name=MSNBC_URL + '44507040/device/rss/vp/46979738/rss.xml', title2='Up With Chris Hayes'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Jansing & Co"), name=MSNBC_URL + '41894601/device/rss/rss.xml', title2='Jansing & Co'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="NOW with Alex Wagner"), name=MSNBC_URL + '45258737/device/rss/rss.xml, title2='NOW with Alex Wagner'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Cycle"), name=MSNBC_URL + '3096433/device/rss/vp/3096434/rss.xml, title2='The Cycle'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Martin Bashir"), name=MSNBC_URL + '41894607/device/rss/rss.xml, title2='Martin Bashir'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Last Word"), name=MSNBC_URL + '38865210/device/rss/vp/3096434/rss.xml', title2='The Last Word'))  
+
+# SHOW OFF AIR  
+#dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Dylan Ratigan Show"), name=MSNBC_URL + '34419165/device/rss/vp/3096434/rss.xml', title2='The Dylan Ratigan Show'))
   return dir
 
 ###################################################################################################
