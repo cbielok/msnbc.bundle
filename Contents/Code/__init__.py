@@ -1,10 +1,6 @@
-import re, string
-
-MSNBC_PREFIX      = "/video/msnbc"
-MSNBC_NAMESPACE   = {'v':'http://www.w3.org/2005/Atom', 'media':'http://search.yahoo.com/mrss/'}
-MSNBC_URL         = 'http://rss.msnbc.msn.com/id/'
-
-CACHE_INTERVAL = 3600
+MSNBC_PREFIX = "/video/msnbc"
+MSNBC_NAMESPACE = {'v':'http://www.w3.org/2005/Atom', 'media':'http://search.yahoo.com/mrss/'}
+MSNBC_URL = 'http://rss.msnbc.msn.com/id/'
 
 ART = 'art-default.jpg'
 ICON = 'icon-default.jpg'
@@ -19,14 +15,13 @@ def Start():
   MediaContainer.viewGroup = 'List'
   MediaContainer.art = R(ART)
   DirectoryItem.thumb = R(ICON)
-  
-  HTTP.CacheTime = CACHE_INTERVAL
+
+  HTTP.CacheTime = CACHE_1HOUR
 
 ###################################################################################################
 def MainMenu():
   dir = MediaContainer()
   dir.Append(Function(DirectoryItem(News,           title="All News")))
-#  dir.Append(Function(DirectoryItem(Countdown,      title="Countdown with Keith Olbermann", thumb=R('countdown.png')))) # he'll be on the Current TV plugin soon enough
   dir.Append(Function(DirectoryItem(Maddow,         title="The Rachel Maddow Show", thumb=R('maddow.png'))))
   dir.Append(Function(DirectoryItem(Nightly_News,   title="Nightly News with Brian Williams", thumb=R('nightly_news.png'))))
   dir.Append(Function(DirectoryItem(Meet_The_Press, title="Meet The Press", thumb=R('meet_the_press.png'))))
@@ -42,8 +37,6 @@ def MainMenu():
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="MSNBC TV"), name=MSNBC_URL + '18424721/device/rss/vp/3096434/rss.xml', title2='MSNBC TV'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Andrea Mitchell Reports"), name=MSNBC_URL + '34510812/device/rss/vp/3096434/rss.xml', title2='Andrea Mitchell Reports'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Melissa Harris-Perry"), name=MSNBC_URL + '46404075/device/rss/vp/47722962', title2='Melissa Harris-Perry'))
-# Show No Longer On Air
-#  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Dylan Ratigan Show"), name=MSNBC_URL + '34419165/device/rss/vp/3096434/rss.xml', title2='The Dylan Ratigan Show'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Up With Chris Hayes"), name=MSNBC_URL + '44507040/device/rss/vp/46979738/rss.xml', title2='Up With Chris Hayes'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Jansing & Co"), name=MSNBC_URL + '41894601/device/rss/rss.xml', title2='Jansing & Co'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="NOW with Alex Wagner"), name=MSNBC_URL + '45258737/device/rss/rss.xml', title2='NOW with Alex Wagner'))
@@ -53,9 +46,6 @@ def MainMenu():
   return dir
 
 ###################################################################################################
-def StripTags(str):
-  return re.sub(r'<[^<>]+>', '', str)
-
 def GetThumb(path):
   try:
     path = path.replace('.thumb.jpg', '.ss_full.jpg')
@@ -74,7 +64,7 @@ def GetLatestEpisode(sender, path):
 ###################################################################################################
 def GetVideosRSS(sender, name, title2):
   dir = MediaContainer(viewGroup='Details', title2=title2)
-  for video in XML.ElementFromURL(name, errors="ignore").xpath('//item', namespaces=MSNBC_NAMESPACE):
+  for video in XML.ElementFromURL(name).xpath('//item', namespaces=MSNBC_NAMESPACE):
     if video.find('link').text.startswith('http://ads') == False :
       title = video.find('title').text
       link = video.find('link').text
@@ -91,7 +81,7 @@ def GetVideosRSS(sender, name, title2):
       except:
         thumbpath = ''
 
-      summary = StripTags(video.find('description').text)
+      summary = String.StripTags(video.find('description').text)
 
       dir.Append(Function(VideoItem(GetVideo, title=title[7:], subtitle=date, summary=summary, thumb=Function(GetThumb, path = thumbpath)),episodeid = episodeid))
 
