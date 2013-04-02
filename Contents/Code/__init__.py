@@ -35,6 +35,7 @@ def MainMenu():
   dir.Append(Function(DirectoryItem(Dateline,       title="Dateline", thumb=R('dateline.jpeg'))))
   dir.Append(Function(DirectoryItem(ZeitGeist,      title="ZeitGeist", thumb=R('zeitgeist.png'))))
   dir.Append(Function(DirectoryItem(Hardball,       title="Hardball", thumb=R('hardball.jpeg'))))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="All In"), name=MSNBC_URL + '51362794/device/rss/vp/3096434/rss.xml', title2='All In'))  
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Ed Show"), name=MSNBC_URL + '30012522/device/rss/vp/3096434/rss.xml', title2='The Ed Show'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Politics Nation"), name=MSNBC_URL + '47728749/device/rss/vp/45755884/rss.xml', title2='Politics Nation'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Way Too Early"), name=MSNBC_URL + '32178079/device/rss/vp/3096434/rss.xml', title2='Way Too Early'))
