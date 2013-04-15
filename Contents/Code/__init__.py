@@ -28,7 +28,6 @@ def MainMenu():
   dir.Append(Function(DirectoryItem(Today,          title="Today Show", thumb=R('today.png'))))
   dir.Append(Function(DirectoryItem(Morning_Joe,    title="Morning Joe", thumb=R('joe.png'))))
   dir.Append(Function(DirectoryItem(Dateline,       title="Dateline", thumb=R('dateline.jpeg'))))
-  dir.Append(Function(DirectoryItem(ZeitGeist,      title="ZeitGeist", thumb=R('zeitgeist.png'))))
   dir.Append(Function(DirectoryItem(Hardball,       title="Hardball", thumb=R('hardball.jpeg'))))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="All In"), name=MSNBC_URL + '51362794/device/rss/vp/3096434/rss.xml', title2='All In'))  
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Ed Show"), name=MSNBC_URL + '30012522/device/rss/vp/3096434/rss.xml', title2='The Ed Show'))
@@ -38,12 +37,13 @@ def MainMenu():
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="MSNBC TV"), name=MSNBC_URL + '18424721/device/rss/vp/3096434/rss.xml', title2='MSNBC TV'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Andrea Mitchell Reports"), name=MSNBC_URL + '34510812/device/rss/vp/3096434/rss.xml', title2='Andrea Mitchell Reports'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Melissa Harris-Perry"), name=MSNBC_URL + '46404075/device/rss/vp/47722962', title2='Melissa Harris-Perry'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Up With Chris Hayes"), name=MSNBC_URL + '44507040/device/rss/vp/46979738/rss.xml', title2='Up With Chris Hayes'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Up With Steve Kornacki"), name=MSNBC_URL + '44507040/device/rss/vp/46979738/rss.xml', title2='Up With Steve Kornacki'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Jansing & Co"), name=MSNBC_URL + '41894601/device/rss/rss.xml', title2='Jansing & Co'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="NOW with Alex Wagner"), name=MSNBC_URL + '45258737/device/rss/rss.xml', title2='NOW with Alex Wagner'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Cycle"), name=MSNBC_URL + '47905980/device/rss/rss.xml', title2='The Cycle'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Martin Bashir"), name=MSNBC_URL + '41894607/device/rss/rss.xml', title2='Martin Bashir'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Last Word"), name=MSNBC_URL + '38865210/device/rss/vp/3096434/rss.xml', title2='The Last Word'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Weekends with Alex Witt"), name='http://www.nbcnews.com/id/51071113/device/rss/rss.xml', title2='Weekends with Alex Witt'))
   return dir
 
 ###################################################################################################
@@ -253,12 +253,8 @@ def ZeitGeist(sender):
 ########################### Hardball ################################################################
 def Hardball(sender):
   dir = MediaContainer(title2='Hardball')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058318/device/rss/vp/29279101', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058303/device/rss/vp/29279101', title2='Most Viewed'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Newsmakers", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058145/device/rss/vp/29279101', title2='Newsmakers'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Politics Fix", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058233/device/rss/vp/29279101', title2='Politics Fix'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Slideshow", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058266/device/rss/vp/29279101', title2='Slideshow'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Big Number", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058274/device/rss/vp/29279101', title2='Big Number'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('hardball.jpeg')), name=MSNBC_URL + '46868801/device/rss/vp/29279101/rss.xml', title2='Latest Clips'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058303/device/rss/vp/29279101/rss.xml', title2='Most Viewed'))
   return dir
   
 ########################### END Hardball END ########################################################
