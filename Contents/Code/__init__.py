@@ -1,72 +1,109 @@
-import re, string
-
-MSNBC_PREFIX      = "/video/msnbc"
 MSNBC_NAMESPACE   = {'v':'http://www.w3.org/2005/Atom', 'media':'http://search.yahoo.com/mrss/'}
 MSNBC_URL         = 'http://rss.msnbc.msn.com/id/'
+LATEST_URL        = 'http://podcastfeeds.nbcnews.com/audio/podcast/%s.xml' #path
 
-CACHE_INTERVAL = 3600
+PREFIX = "/video/msnbc",
 
 ART = 'art-default.jpg'
 ICON = 'icon-default.jpg'
 
+RSS_SHOWS = [
+  {'title'  : 'All In',                 'link'  : '51362794/device/rss/vp/3096434'},  {'title'  : 'Andrea Mitchell Reports',  'link'  : '34510812/device/rss/vp/3096434'},
+  {'title'  : 'The Cycle',              'link'  : '47905980/device/rss'},             {'title'  : 'Daily Rundown',            'link'  : '34419168/device/rss/vp/3096434'},
+  {'title'  : 'The Dylan Ratigan Show', 'link'  : '34419165/device/rss/vp/3096434'},  {'title'  : 'The Ed Show',              'link'  : '30012522/device/rss/vp/3096434'},    {'title'  : 'Way Too Early',            'link'  : '32178079/device/rss/vp/3096434'},
+  {'title'  : 'Jansing & Co',           'link'  : '41894601/device/rss'},             {'title'  : 'The Last Word',            'link'  : '38865210/device/rss/vp/3096434'},
+  {'title'  : 'Martin Bashir',          'link'  : '41894607/device/rss/'},            {'title'  : 'Melissa Harris-Perry',     'link'  : '46404075/device/rss/vp/47722962'},
+  {'title'  : 'MSNBC TV',               'link'  : '18424721/device/rss/vp/3096434'},  {'title'  : 'Politics Nation',          'link'  : '47728749/device/rss/vp/45755884'},
+  {'title'  : 'Up With Steve Kornacki', 'link'  : '44507040/device/rss/vp/46979738'}, {'title'  : 'Weekends with Alex Witt',  'link'  : '51071113/device/rss'}
+]
+
+MADDOW_FEEDS = [
+  {'title'  : 'Latest Programs',  'link'  : '27668917/device/rss/vp/26315908'}, {'title'  : 'Most Viewed',   'link'  : '27108530/device/rss/vp/26315908'},
+  {'title'  : 'Ms. Information',  'link'  : '26776800/device/rss/vp/26315908'}, {'title'  : 'GOP in Exile',  'link'  : '28937296/device/rss/vp/26315908'},
+  {'title'  : 'Rachel Re:',       'link'  : '26776790/device/rss/vp/26315908'}, {'title'  : 'Just Enough',   'link'  : '26776791/device/rss/vp/26315908'},
+  {'title'  : 'Recommended',      'link'  : '27351114/device/rss/vp/26315908'}
+]
+
+NN_FEEDS = [
+  {'title'  : 'Full Episodes',        'link'  : '18424748/device/rss'}, {'title'  : 'Latest Program',     'link'  : '22422632/device/rss'},
+  {'title'  : 'Most Viewed',          'link'  : '22453546/device/rss'}, {'title'  : 'Brian Williams',     'link'  : '21437648/device/rss'},
+  {'title'  : 'Politics',             'link'  : '21677453/device/rss'}, {'title'  : 'Hard Times',         'link'  : '24856627/device/rss'},
+  {'title'  : 'Health',               'link'  : '22827958/device/rss'}, {'title'  : 'World News',         'link'  : '22827879/device/rss'},
+  {'title'  : 'Weather',              'link'  : '26676833/device/rss'}, {'title'  : 'Our Planet',         'link'  : '21437577/device/rss'},
+  {'title'  : 'Making a Difference',  'link'  : '21437535/device/rss'}, {'title'  : 'In Their Own Words', 'link'  : '21437630/device/rss'}
+]
+
+NN_WEB  = [
+  {'title'  : 'Latest Clips',             'link'  : '22316432/device/rss'}, {'title'  : 'Extended Interviews',  'link'  : '22423188/device/rss'},
+    {'title'  : 'NBC Behind the Scenes',  'link'  : '23018885/device/rss'}, {'title'  : 'Digital Dispach',      'link'  : '21550471/device/rss'}
+]
+
+MTP_FEEDS = [
+  {'title'  : 'Full Episodes',        'link'  : '18424745/device/rss'}, {'title' :  'Latest Clips', 'link'  : '18424744/device/rss/'},
+  {'title'  : 'Insights & Analysis',  'link'  : '21437686/device/rss'}, {'title' :  'News Makers', thumb=R('meet_the_press.png')), name=MSNBC_URL + '21437662/device/rss', title2='News Makers'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Take Two", thumb=R('meet_the_press.png')), name=MSNBC_URL + '21437717/device/rss', title2='Take Two'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Meet The Candidates", thumb=R('meet_the_press.png')), name=MSNBC_URL + '21437695/device/rss', title2='Meet The Candidates'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="60th Anniversary", thumb=R('meet_the_press.png')), name=MSNBC_URL + '22410986/device/rss', title2='60th Anniversary'))
+  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Russert Remembered", thumb=R('meet_the_press.png')), name=MSNBC_URL + '25146060/device/rss', title2='Meet The Candidates'))
+]
+
 ###################################################################################################
 def Start():
-  Plugin.AddPrefixHandler(MSNBC_PREFIX, MainMenu, 'MSNBC', ICON,ART)
-  Plugin.AddViewGroup("List", viewMode="List", mediaType="items")
-  Plugin.AddViewGroup("Details", viewMode="InfoList", mediaType="items")
-  MediaContainer.title1 = 'MSNBC'
-  MediaContainer.content = 'Items'
-  MediaContainer.viewGroup = 'List'
-  MediaContainer.art = R(ART)
-  DirectoryItem.thumb = R(ICON)
-  
-  HTTP.CacheTime = CACHE_INTERVAL
+  ObjectContainer.title1 = 'MSNBC'
+  ObjectContainer.content = 'Items'
+  ObjectContainer.art = R(ART)
+  DirectoryObject.thumb = R(ICON)
 
 ###################################################################################################
+@handler(PREFIX, 'MSNBC', thumb=ICON, art=ART)
 def MainMenu():
-  dir = MediaContainer()
-  dir.Append(Function(DirectoryItem(News,           title="All News")))
-#  dir.Append(Function(DirectoryItem(Countdown,      title="Countdown with Keith Olbermann", thumb=R('countdown.png')))) # he'll be on the Current TV plugin soon enough
-  dir.Append(Function(DirectoryItem(Maddow,         title="The Rachel Maddow Show", thumb=R('maddow.png'))))
-  dir.Append(Function(DirectoryItem(Nightly_News,   title="Nightly News with Brian Williams", thumb=R('nightly_news.png'))))
-  dir.Append(Function(DirectoryItem(Meet_The_Press, title="Meet The Press", thumb=R('meet_the_press.png'))))
-  dir.Append(Function(DirectoryItem(Today,          title="Today Show", thumb=R('today.png'))))
-  dir.Append(Function(DirectoryItem(Morning_Joe,    title="Morning Joe", thumb=R('joe.png'))))
-  dir.Append(Function(DirectoryItem(Dateline,       title="Dateline", thumb=R('dateline.jpeg'))))
-  dir.Append(Function(DirectoryItem(ZeitGeist,      title="ZeitGeist", thumb=R('zeitgeist.png'))))
-  dir.Append(Function(DirectoryItem(Hardball,       title="Hardball", thumb=R('hardball.jpeg'))))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Ed Show"), name=MSNBC_URL + '30012522/device/rss/vp/3096434/rss.xml', title2='The Ed Show'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Way Too Early"), name=MSNBC_URL + '32178079/device/rss/vp/3096434/rss.xml', title2='Way Too Early'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Daily Rundown"), name=MSNBC_URL + '34419168/device/rss/vp/3096434/rss.xml', title2='Daily Rundown'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="MSNBC TV"), name=MSNBC_URL + '18424721/device/rss/vp/3096434/rss.xml', title2='MSNBC TV'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Andrea Mitchell Reports"), name=MSNBC_URL + '34510812/device/rss/vp/3096434/rss.xml', title2='Andrea Mitchell Reports'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="Melissa Harris-Perry"), name=MSNBC_URL + '46404075/device/rss/vp/47722962', title2='Melissa Harris-Perry'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Dylan Ratigan Show"), name=MSNBC_URL + '34419165/device/rss/vp/3096434/rss.xml', title2='The Dylan Ratigan Show'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,   title="The Last Word"), name=MSNBC_URL + '38865210/device/rss/vp/3096434/rss.xml', title2='The Last Word'))
-  return dir
+  oc = ObjectContainer()
+  oc.add(DirectoryObject(key=Callback(News), title="All News"))
+  oc.add(DirectoryObject(key=Callback(Maddow), title="The Rachel Maddow Show", thumb=R('maddow.png')))
+  oc.add(DirectoryObject(key=Callback(Nightly_News), title="Nightly News with Brian Williams", thumb=R('nightly_news.png')))
+  oc.add(DirectoryObject(key=Callback(Meet_The_Press), title="Meet The Press", thumb=R('meet_the_press.png')))
+  oc.add(DirectoryObject(key=Callback(Today), title="Today Show", thumb=R('today.png')))
+  oc.add(DirectoryObject(key=Callback(Morning_Joe), title="Morning Joe", thumb=R('joe.png')))
+  oc.add(DirectoryObject(key=Callback(Dateline), title="Dateline", thumb=R('dateline.jpeg')))
+  oc.add(DirectoryObject(key=Callback(ZeitGeist), title="ZeitGeist", thumb=R('zeitgeist.png')))
+  oc.add(DirectoryObject(key=Callback(Hardball), title="Hardball", thumb=R('hardball.jpeg')))
+  for show in RSS_SHOWS:
+    oc.add(DirectoryObject(key=Callback(GetVideoRSS, rss_url=MSNBC_URL+show['link'], title2=show['title']), title=show['title']))
+  return oc
 
 ###################################################################################################
-def StripTags(str):
-  return re.sub(r'<[^<>]+>', '', str)
+@route(PREFIX + '/videorss')
+def GetVideosRSS(rss_url, title1='MSNBC', title2='Videos'):
+  oc = ObjectContainer(titl1=title1, title2=title2)
+  if not rss_url.startswith('http://'):
+    rss_url = MSNBC_URL + rss_url
+  feed = RSS.FeedFromURL(rss_url)
+  default_thumb = feed.image
+  for video in feed.entries:
+    title = video.title
+    summary = video.description
+    date = video.updated
+    link = video.link
+    duration = Datetime.MillisecondsFromString(video.itunes_duration)
+    try:
+      thumb = video.image
+    except:
+      thumb = default_thumb
+    oc.add(VideoClipObject(url=link, title=title, summary=summary, originally_available_at=date, duration=duration, thumb=thumb))
 
-def GetThumb(path):
-  try:
-    path = path.replace('.thumb.jpg', '.ss_full.jpg')
-    image = HTTP.Request(path, cacheTime=CACHE_1MONTH).content
-    return DataObject(image, 'image/jpeg')
-  except:
-    return R(ICON)
-
-def GetVideo(sender, episodeid):
-  path = "http://www.msnbc.msn.com/default.cdnx/id/%s/displaymode/1157?t=.flv"%episodeid
-  return Redirect(path)
+  if len(oc) < 1:
+    return ObjectContainer(header="Empty Directory", message="There is no content to display.")
   
-def GetLatestEpisode(sender, path):
-  return Redirect(XML.ElementFromURL('http://podcastfeeds.nbcnews.com/audio/podcast/%s.xml'%path).xpath('//enclosure')[0].get('url'))
+  return oc
 
-###################################################################################################
-def GetVideosRSS(sender, name, title2):
-  dir = MediaContainer(viewGroup='Details', title2=title2)
+  '''
+    title = feed.entries[0].title
+    desc = feed.entries[0].description
+    duration = int(feed.entries[0].rte_duration['ms'])
+    thumb = feed.entries[0].media_thumbnail['url']
+    link = feed.entries[0].link
+    
+    
   for video in XML.ElementFromURL(name, errors="ignore").xpath('//item', namespaces=MSNBC_NAMESPACE):
     if video.find('link').text.startswith('http://ads') == False :
       title = video.find('title').text
@@ -92,67 +129,58 @@ def GetVideosRSS(sender, name, title2):
     return MessageContainer("Empty Category","This category does not contain any video.")
   else:
     return dir
+
+    feed = RSS.FeedFromURL(url)
+    '''
+    
+###################################################################################################
+@route(PREFIX + '/feeds')
+def FeedDirectory(feed_list, title1='MSNBC',title2='Feeds',thumb=R(ICON)):
+  oc = ObjectContainer(title1=title1, title2=title2)
+  for show in feed_list:
+    oc.add(DirectoryObject(key=Callback(GetVideoRSS, rss_url=show['link'], title1=title2, title2=show['title']), title=show['title'], thumb=thumb))
+  return oc
   
-########################### END Keith Olbermann END ################################################
 ########################### Rachel Maddow ##########################################################
-def Maddow(sender):
-  dir = MediaContainer(title2='The Rachel Maddow Show')
-  dir.Append(Function(VideoItem(GetLatestEpisode,     title='Latest Full Episode', thumb=R('maddow.png')),path = 'MSNBC-MADDOW-NETCAST-M4V'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Programs", thumb=R('maddow.png')), name=MSNBC_URL + '27668917/device/rss/vp/26315908', title2='Latest Programs'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('maddow.png')), name=MSNBC_URL + '27108530/device/rss/vp/26315908', title2='Most Viewed'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Ms. Information", thumb=R('maddow.png')), name=MSNBC_URL + '26776800/device/rss/vp/26315908', title2='Ms. Information'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="GOP in Exile", thumb=R('maddow.png')), name=MSNBC_URL + '28937296/device/rss/vp/26315908', title2='GOP in Exile'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Rachel Re:", thumb=R('maddow.png')), name=MSNBC_URL + '26776790/device/rss/vp/26315908', title2='Rachel Re:'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Just Enough", thumb=R('maddow.png')), name=MSNBC_URL + '26776791/device/rss/vp/26315908', title2='Just Enough'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Recommended", thumb=R('maddow.png')), name=MSNBC_URL + '27351114/device/rss/vp/26315908', title2='Recommended'))
-  return dir
+@route(PREFIX + '/maddow')
+def Maddow():
+  title2='The Rachel Maddow Show'
+  thumb = R('maddow.png')
+  oc = ObjectContainer(title2=title2)
+  oc.add(VideoClipObject(url=LATEST_URL % 'MSNBC-MADDOW-NETCAST-M4V', title='Latest Full Episode', thumb=thumb))
+  for show in MADDOW_FEEDS:
+    oc.add(DirectoryObject(key=Callback(GetVideoRSS, rss_url=show['link'], title1=title2, title2=show['title']), title=show['title'], thumb=thumb))
+  return oc
   
 ########################### END Rachel Maddow END ##################################################
 ########################### Nighly News ############################################################
-def Nightly_News(sender):
-  dir = MediaContainer(title2='Nightly News with Brian Williams')
-  dir.Append(Function(VideoItem(GetLatestEpisode,     title='Latest Full Episode', thumb=R('nightly_news.png')),path = 'MSNBC-NN-NETCAST-M4V'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Full Episodes", thumb=R('nightly_news.png')), name=MSNBC_URL + '18424748/device/rss', title2='Full Episodes'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Program", thumb=R('nightly_news.png')), name=MSNBC_URL + '22422632/device/rss', title2='Latest Program'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('nightly_news.png')), name=MSNBC_URL + '22453546/device/rss', title2='Most Viewed'))
-  dir.Append(Function(DirectoryItem(NN_Web,           title="Web Only", thumb=R('nightly_news.png'))))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Brian Williams", thumb=R('nightly_news.png')), name=MSNBC_URL + '21437648/device/rss', title2='Brian Williams'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Politics", thumb=R('nightly_news.png')), name=MSNBC_URL + '21677453/device/rss', title2='Politics'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Hard Times", thumb=R('nightly_news.png')), name=MSNBC_URL + '24856627/device/rss', title2='Hard Times'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Health", thumb=R('nightly_news.png')), name=MSNBC_URL + '22827958/device/rss', title2='Health'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="World News", thumb=R('nightly_news.png')), name=MSNBC_URL + '22827879/device/rss', title2='World News'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Weather", thumb=R('nightly_news.png')), name=MSNBC_URL + '26676833/device/rss', title2='Weather'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Our Planet", thumb=R('nightly_news.png')), name=MSNBC_URL + '21437577/device/rss', title2='Our Planet'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Making a Difference", thumb=R('nightly_news.png')), name=MSNBC_URL + '21437535/device/rss', title2='Making a Difference'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="In Their Own Words", thumb=R('nightly_news.png')), name=MSNBC_URL + '21437630/device/rss', title2='In Their Own Words'))
-  return dir
-  
-def NN_Web(sender):
-  dir = MediaContainer(title2='Web Only')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('nightly_news.png')), name=MSNBC_URL + '22316432/device/rss', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Extended Interviews", thumb=R('nightly_news.png')), name=MSNBC_URL + '22423188/device/rss', title2='Extended Interviews'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NBC Behind the Scenes", thumb=R('nightly_news.png')), name=MSNBC_URL + '23018885/device/rss', title2='NBC Behind the Scenes'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Digital Dispach", thumb=R('nightly_news.png')), name=MSNBC_URL + '21550471/device/rss', title2='Digital Dispach'))
-  return dir
+@route(PREFIX + '/nightlynews')
+def Nightly_News():
+  title2='Nightly News with Brian Williams'
+  thumb=R('nightly_news.png')
+  oc = ObjectContainer(title2=title2)
+  oc.add(VideoClipObject(url=LATEST_URL % 'MSNBC-NN-NETCAST-M4V', title='Latest Full Episode', thumb=thumb))
+  for show in NN_FEEDS:
+    oc.add(DirectoryObject(key=Callback(GetVideoRSS, rss_url=show['link'], title1=title2, title2=show['title']), title=show['title'], thumb=thumb))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=NN_WEB, title1="Nightly News", title2="Web Only", thumb=thumb), title="Web Only", thumb=thumb))
+  return oc
   
 ########################### END Nightly News END ###################################################
 ########################### Meet the Press #########################################################
-def Meet_The_Press(sender):
-  dir = MediaContainer(title2='Meet the Press')
-  dir.Append(Function(VideoItem(GetLatestEpisode,     title='Latest Full Episode', thumb=R('meet_the_press.png')),path = 'MSNBC-MTP-NETCAST-M4V'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Full Episodes", thumb=R('meet_the_press.png')), name=MSNBC_URL + '18424745/device/rss', title2='Full Episodes'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('meet_the_press.png')), name='http://pheedo.msnbc.msn.com/id/18424744/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Insights & Analysis", thumb=R('meet_the_press.png')), name=MSNBC_URL + '21437686/device/rss', title2='Insights & Analysis'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="News Makers", thumb=R('meet_the_press.png')), name=MSNBC_URL + '21437662/device/rss', title2='News Makers'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Take Two", thumb=R('meet_the_press.png')), name=MSNBC_URL + '21437717/device/rss', title2='Take Two'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Meet The Candidates", thumb=R('meet_the_press.png')), name=MSNBC_URL + '21437695/device/rss', title2='Meet The Candidates'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="60th Anniversary", thumb=R('meet_the_press.png')), name=MSNBC_URL + '22410986/device/rss', title2='60th Anniversary'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Russert Remembered", thumb=R('meet_the_press.png')), name=MSNBC_URL + '25146060/device/rss', title2='Meet The Candidates'))
-  return dir
+@route(PREFIX + '/meetthepress')
+def Meet_The_Press():
+  title2='Meet the Press'
+  thumb=R('meet_the_press.png')
+  oc = ObjectContainer(title2=title2)
+  oc.add(VideoClipObject(url=LATEST_URL % 'MSNBC-MTP-NETCAST-M4V', title='Latest Full Episode', thumb=thumb))
+  for show in MTP_FEEDS:
+    oc.add(DirectoryObject(key=Callback(GetVideoRSS, rss_url=show['link'], title1=title2, title2=show['title']), title=show['title'], thumb=thumb))
+  return oc
   
 ########################### END Meet the Press END ##################################################
 ########################### Today Show ##############################################################
-def Today(sender):
+@route(PREFIX + '/today')
+def Today():
   dir = MediaContainer(title2='Today Show')
   dir.Append(Function(DirectoryItem(TS_Latest,        title="Latest Program", thumb=R('today.png'))))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('today.png')), name=MSNBC_URL + '18424824/device/rss/vp/26184891', title2='Most Viewed'))
@@ -175,7 +203,8 @@ def Today(sender):
   dir.Append(Function(DirectoryItem(TS_Special,       title="Special Series", thumb=R('today.png'))))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Web-only", thumb=R('today.png')), name=MSNBC_URL + '21658973/device/rss/vp/26184891', title2='Web-only'))
   return dir
-  
+
+@route(PREFIX + '/todaylatest')
 def TS_Latest(sender):
   dir = MediaContainer(title2='Latest Program')
   dir.Append(Function(VideoItem(GetLatestEpisode,     title='Latest Full Episode', thumb=R('today.png')),path = 'MSNBC-TDY-PODCAST-M4V'))
@@ -201,7 +230,8 @@ def TS_Diet(sender):
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('today.png')), name=MSNBC_URL + '22828130/device/rss/vp/26184891', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Nutrition with Joy Bauer", thumb=R('today.png')), name=MSNBC_URL + '25887307/device/rss/vp/26184891', title2='Nutrition with Joy Bauer'))
   return dir
-  
+
+
 def TS_Entertainment(sender):
   dir = MediaContainer(title2='Entertainment')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('today.png')), name=MSNBC_URL + '21658676/device/rss/vp/26184891', title2='Latest Clips'))
@@ -230,7 +260,8 @@ def TS_Special(sender):
   
 ########################### END Today Show END #####################################################
 ########################### Morning Joe ############################################################
-def Morning_Joe(sender):
+@route(PREFIX + '/morningjoe')
+def Morning_Joe():
   dir = MediaContainer(title2='Morning Joe')
   dir.Append(Function(VideoItem(GetLatestEpisode,     title='Latest Full Episode', thumb=R('joe.png')),path = 'MSNBC-SCARBOROUGH-NETCAST-M4V'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('joe.png')), name=MSNBC_URL + '28184433/device/rss/vp/28159725', title2='Most Viewed'))
@@ -244,7 +275,8 @@ def Morning_Joe(sender):
   
 ########################### END Morning Joe END #####################################################
 ########################### ZeitGeist ###############################################################
-def ZeitGeist(sender):
+@route(PREFIX + '/zeitgeist')
+def ZeitGeist():
   dir = MediaContainer(title2='ZeitGeist')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('zeitgeist.png')), name=MSNBC_URL + '20418176/device/rss/vp/26852192', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('zeitgeist.png')), name=MSNBC_URL + '27707215/device/rss/vp/26852192', title2='Most Viewed'))
@@ -253,7 +285,8 @@ def ZeitGeist(sender):
   
 ########################### END ZeitGeist END #######################################################
 ########################### Hardball ################################################################
-def Hardball(sender):
+@route(PREFIX + '/hardball')
+def Hardball():
   dir = MediaContainer(title2='Hardball')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058318/device/rss/vp/29279101', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('hardball.jpeg')), name=MSNBC_URL + '29058303/device/rss/vp/29279101', title2='Most Viewed'))
@@ -265,21 +298,24 @@ def Hardball(sender):
   
 ########################### END Hardball END ########################################################
 ########################### Dateline ################################################################
-def Dateline(sender):
+@route(PREFIX + '/dateline')
+def Dateline():
   dir = MediaContainer(title2='Dateline')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('dateline.jpeg')), name='http://pheedo.msnbc.msn.com/id/18424719/device/rss/', title2='Latest Clips'))
   return dir
   
 ########################### END Dateline END ########################################################
 ########################### Dateline ################################################################
-def edshow(sender):
+@route(PREFIX + '/edshow')
+def edshow():
   dir = MediaContainer(title2='The Ed Show')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('edshow.jpeg')), name='http://pheedo.msnbc.msn.com/id/18424719/device/rss/', title2='Latest Clips'))
   return dir
   
 ########################### END Dateline END ########################################################
 ########################### All News ################################################################
-def News(sender):
+@route(PREFIX + '/news')
+def News():
   dir = MediaContainer(title2='All News')
   dir.Append(Function(DirectoryItem(N_US,             title="U.S. News")))
   dir.Append(Function(DirectoryItem(N_World,          title="World news")))
@@ -292,8 +328,9 @@ def News(sender):
   dir.Append(Function(DirectoryItem(N_Travel,         title="Travel")))
   dir.Append(Function(DirectoryItem(N_Weather,        title="Weather")))
   return dir
-  
-def N_US(sender):
+
+@route(PREFIX + '/newsus')
+def N_US():
   dir = MediaContainer(title2='U.S. News')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/21426262/device/rss', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="The Elkhart Project"), name=MSNBC_URL + '29637267/device/rss', title2='The Elkhart Project'))
@@ -309,7 +346,8 @@ def N_US(sender):
   dir.Append(Function(DirectoryItem(N_Weather,        title="Weather")))
   return dir
 
-def N_World(sender):
+@route(PREFIX + '/newsworld')
+def N_World():
   dir = MediaContainer(title2='World News')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/21426473/device/rss/', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Americas"), name=MSNBC_URL + '21427766/device/rss', title2='Americas'))
@@ -323,7 +361,8 @@ def N_World(sender):
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Wonderful World"), name=MSNBC_URL + '21427651/device/rss', title2='Wonderful World'))
   return dir
 
-def N_Business(sender):
+@route(PREFIX + '/newsbusiness')
+def N_Business():
   dir = MediaContainer(title2='Business')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/18424694/device/rss/', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Stock and Economy"), name=MSNBC_URL + '21427890/device/rss', title2='Stocks and Economy'))
@@ -337,7 +376,8 @@ def N_Business(sender):
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Your Business"), name=MSNBC_URL + '18424833/device/rss', title2='Your Business'))
   return dir
 
-def N_Politics(sender):
+@route(PREFIX + '/newspolitics')
+def N_Politics():
   dir = MediaContainer(title2='Politics')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/18424734/device/rss/', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="The White House"), name=MSNBC_URL + '21427723/device/rss', title2='The White House'))
@@ -347,7 +387,8 @@ def N_Politics(sender):
   dir.Append(Function(DirectoryItem(Meet_The_Press,   title="Meet The Press", thumb=R('meet_the_press.png'))))
   return dir
 
-def N_Entertainment(sender):
+@route(PREFIX + '/newsentertainment')
+def N_Entertainment():
   dir = MediaContainer(title2='Entertainment')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/18424692/device/rss/', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Scoop", thumb=R('joe.png')), name=MSNBC_URL + '28184387/device/rss/vp/28159725', title2='Scoop'))
@@ -360,7 +401,8 @@ def N_Entertainment(sender):
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Keeping Tabs"), name=MSNBC_URL + '20498047/device/rss', title2='Keeping Tabs'))
   return dir
 
-def N_Health(sender):
+@route(PREFIX + '/newshealth')
+def N_Health():
   dir = MediaContainer(title2='Health')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/21427299/device/rss/', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Diet & Nutrition"), name=MSNBC_URL + '21428136/device/rss', title2='Diet & Nutrition'))
@@ -380,7 +422,8 @@ def N_Health(sender):
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Animal Tracks"), name=MSNBC_URL + '18424682/device/rss', title2='Animal Tracks'))
   return dir
 
-def N_Sports(sender):
+@route(PREFIX + '/newssports')
+def N_Sports():
   dir = MediaContainer(title2='Sports')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Sports"), name='http://pheedo.msnbc.msn.com/id/21426493/device/rss/', title2='Latest Sports'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NFL"), name='http://nbcsports.msnbc.com/id/21428022/device/rss', title2='NFL'))
@@ -399,7 +442,8 @@ def N_Sports(sender):
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Matty Blake"), name='http://nbcsports.msnbc.com/id/23258082/device/rss', title2='Matty Blake'))
   return dir
 
-def N_Tech(sender):
+@route(PREFIX + '/newstech')
+def N_Tech():
   dir = MediaContainer(title2='Tech')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/18424747/device/rss/', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Space"), name=MSNBC_URL + '18424741/device/rss', title2='Space'))
@@ -409,13 +453,15 @@ def N_Tech(sender):
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Red Tape Chronicals"), name=MSNBC_URL + '28780760/device/rss', title2='Red Tape Chronicals'))
   return dir
 
-def N_Travel(sender):
+@route(PREFIX + '/newstravel')
+def N_Travel():
   dir = MediaContainer(title2='Travel')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='http://pheedo.msnbc.msn.com/id/21427411/device/rss/', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Travel Tips"), name=MSNBC_URL + '26560980/device/rss', title2='Travel Tips'))
   return dir
 
-def N_Weather(sender):
+@route(PREFIX + '/newsweather')
+def N_Weather():
   dir = MediaContainer(title2='Weather')
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name=MSNBC_URL + '25198763/device/rss', title2='Latest Clips'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="National Forecasts"), name=MSNBC_URL + '30331543/device/rss', title2='National Forecasts'))
@@ -429,3 +475,22 @@ def N_Weather(sender):
 
 ########################### END All News END #####################################################
 
+def StripTags(str):
+  return re.sub(r'<[^<>]+>', '', str)
+
+def GetThumb(path):
+  try:
+    path = path.replace('.thumb.jpg', '.ss_full.jpg')
+    image = HTTP.Request(path, cacheTime=CACHE_1MONTH).content
+    return DataObject(image, 'image/jpeg')
+  except:
+    return R(ICON)
+
+def GetVideo(sender, episodeid):
+  path = "http://www.msnbc.msn.com/default.cdnx/id/%s/displaymode/1157?t=.flv"%episodeid
+  return Redirect(path)
+  
+def GetLatestEpisode(sender, path):
+  return Redirect(XML.ElementFromURL('http://podcastfeeds.nbcnews.com/audio/podcast/%s.xml'%path).xpath('//enclosure')[0].get('url'))
+
+###################################################################################################
