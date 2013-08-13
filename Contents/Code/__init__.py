@@ -45,6 +45,27 @@ MTP_FEEDS = [
   {'title'  :   'Take Two',             'link'  :   '21437717/device/rss'}, {'title'    :   'Meet The Candidates',  'link'  :   '21437695/device/rss'},
   {'title'  :   '60th Anniversary',     'link'  :   '22410986/device/rss'}, {'title'    :   'Russert Remembered',   'link'  :   '25146060/device/rss'}
 ]
+# rss feeds for the Today Show - "Latest Program"
+TS_LATEST = [
+  {'title'  :   'Latest Clips',  'link'  : '18424824/device/rss/vp/26184891'}, {'title'  : 'Honda & Cathy Lee', 'link'  :  '26316687/device/rss/vp/26184891'}
+]
+# rss feeds for Today Show - News
+TS_NEWS = [
+  {'title'  :  'Latest Clips',       'link'  :  '22828010/device/rss/vp/26184891'},  {'title'  :  'Politics',  'link'  :  '25274211/device/rss/vp/26184891'},
+  {'title'  :  'Tales of Survival',  'link'  :  '26316706/device/rss/vp/26184891'}
+]
+# rss feeds for Today Show - Concert Series
+TS_CONCERT = [
+  {'title'  :  'Latest Clips',  'link'  :  '21659048/device/rss/vp/26184891'},  {'title'  :  'Backstage Pass',  'link'  :  '25723585/device/rss/vp/26184891'}
+]
+# rss feeds for Today Show - Diet & Health
+TS_DIET = [
+  {'title'  :  'Latest Clips',  'link'  :  '22828130/device/rss/vp/26184891'},  {'title'  :  'Nutrition with Joy Bauer',  'link'  :  '25887307/device/rss/vp/26184891'}
+]
+# rss feeds for Today Show - Entertainment
+TS_ENTERTAINMENT = [
+  {'title'  :  'Latest Clips',  'link'  :  '21658676/device/rss/vp/26184891'},  {'title'  :  'Critics Class',  'link'  :  '26316665/device/rss/vp/26184891'}
+]
 
 ###################################################################################################
 def Start():
@@ -91,50 +112,14 @@ def GetVideosRSS(rss_url, title1='MSNBC', title2='Videos'):
       thumb = video.image
     except:
       thumb = default_thumb
-    oc.add(VideoClipObject(url=link, title=title, summary=summary, originally_available_at=date, duration=duration, thumb=thumb))
+    oc.add(VideoClipObject(url=link, title=title, summary=summary, originally_available_at=date, duration=duration,
+      thumb=Resource.ContentsOfURLWithFallback(url=thumb.replace('.thumb.jpg', '.ss_full.jpg'), fallback=thumb)))
 
   if len(oc) < 1:
     return ObjectContainer(header="Empty Directory", message="There is no content to display.")
   
   return oc
-
-  '''
-    title = feed.entries[0].title
-    desc = feed.entries[0].description
-    duration = int(feed.entries[0].rte_duration['ms'])
-    thumb = feed.entries[0].media_thumbnail['url']
-    link = feed.entries[0].link
-    
-    
-  for video in XML.ElementFromURL(name, errors="ignore").xpath('//item', namespaces=MSNBC_NAMESPACE):
-    if video.find('link').text.startswith('http://ads') == False :
-      title = video.find('title').text
-      link = video.find('link').text
-      if '#' in link:
-        episodeid = link.split('#')[1]
-      else:
-        episodeid = link.split('/')[-2]
-
-      if title.count("Presented By:") > 0:
-        continue
-      date = Datetime.ParseDate(video.find('pubDate').text).strftime('%a %b %d, %Y')
-      try:
-        thumbpath = video.xpath('media:content', namespaces=MSNBC_NAMESPACE)[0].get('url')
-      except:
-        thumbpath = ''
-
-      summary = StripTags(video.find('description').text)
-
-      dir.Append(Function(VideoItem(GetVideo, title=title[7:], subtitle=date, summary=summary, thumb=Function(GetThumb, path = thumbpath)),episodeid = episodeid))
-
-  if (len(dir) == 0):
-    return MessageContainer("Empty Category","This category does not contain any video.")
-  else:
-    return dir
-
-    feed = RSS.FeedFromURL(url)
-    '''
-    
+   
 ###################################################################################################
 @route(PREFIX + '/feeds', feed_list=list)
 def FeedDirectory(feed_list, title1='MSNBC',title2='Feeds',thumb=ICON, latest_episode=None):
@@ -159,60 +144,31 @@ def Nightly_News():
 @route(PREFIX + '/today')
 def Today():
   oc = ObjectContainer(title2='Today Show')
-  oc.add(key=Callback(TS_Latest), title="Latest Program", thumb=R('today.png'))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_LATEST, title1="Today Show", title2="Latest Program", thumb='today.png',
+    latest_episode='MSNBC-TDY-PODCAST-M4V'), title="Latest Program", thumb=R('today.png')))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_NEWS, title1="Today Show", title2="News", thumb='today.png'),
+    title="News", thumb=R('today.png)))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_CONCERT, title1="Today Show", title2="Concert Series", thumb='today.png'),
+    title="Concert Series", thumb=R('today.png)))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_DIET, title1="Today Show", title2="Diet & Health", thumb='today.png'),
+    title="Diet & Health", thumb=R('today.png)))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_ENTERTAINMENT, title1="Today Show", title2="Entertainment", thumb='today.png'),
+    title="Entertainment", thumb=R('today.png)))
+  dir.Append(Function(DirectoryItem(TS_Fashion,       title="Fashion", thumb=R('today.png'))))
+  dir.Append(Function(DirectoryItem(TS_Relationships, title="Relationships", thumb=R('today.png'))))
+  dir.Append(Function(DirectoryItem(TS_Special,       title="Special Series", thumb=R('today.png'))))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Most Viewed", thumb=R('today.png')), name=MSNBC_URL + '18424824/device/rss/vp/26184891', title2='Most Viewed'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Previously", thumb=R('today.png')), name=MSNBC_URL + '26411480/device/rss/vp/26184891', title2='Previously'))
-  dir.Append(Function(DirectoryItem(TS_News,          title="News", thumb=R('today.png'))))
-  dir.Append(Function(DirectoryItem(TS_Concert,       title="Concert Series", thumb=R('today.png'))))
-  dir.Append(Function(DirectoryItem(TS_Diet,          title="Diet & Health", thumb=R('today.png'))))
-  dir.Append(Function(DirectoryItem(TS_Entertainment, title="Entertainment", thumb=R('today.png'))))
-  dir.Append(Function(DirectoryItem(TS_Fashion,       title="Fashion", thumb=R('today.png'))))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Food & Wine", thumb=R('today.png')), name=MSNBC_URL + '21658719/device/rss/vp/26184891', title2='Food & Wine'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Home & Garden", thumb=R('today.png')), name=MSNBC_URL + '21658803/device/rss/vp/26184891', title2='Home & Garden'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Money", thumb=R('today.png')), name=MSNBC_URL + '23152698/device/rss/vp/26184891', title2='Money'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Parenting", thumb=R('today.png')), name=MSNBC_URL + '21658914/device/rss/vp/26184891', title2='Parenting'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Favorite People: 2008", thumb=R('today.png')), name=MSNBC_URL + '28357213/device/rss/vp/26184891', title2='Favorite People: 2008'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Pets", thumb=R('today.png')), name=MSNBC_URL + '23152689/device/rss/vp/26184891', title2='Pets'))
-  dir.Append(Function(DirectoryItem(TS_Relationships, title="Relationships", thumb=R('today.png'))))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="People", thumb=R('today.png')), name=MSNBC_URL + '29411569/device/rss/vp/26184891', title2='People'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Tech & Gadgets", thumb=R('today.png')), name=MSNBC_URL + '23152694/device/rss/vp/26184891', title2='Tech & Gadgets'))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Travel", thumb=R('today.png')), name=MSNBC_URL + '22828279/device/rss/vp/26184891', title2='Travel'))
-  dir.Append(Function(DirectoryItem(TS_Special,       title="Special Series", thumb=R('today.png'))))
   dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Web-only", thumb=R('today.png')), name=MSNBC_URL + '21658973/device/rss/vp/26184891', title2='Web-only'))
-  return dir
-
-@route(PREFIX + '/todaylatest')
-def TS_Latest(sender):
-  dir = MediaContainer(title2='Latest Program')
-  dir.Append(Function(VideoItem(GetLatestEpisode,     title='Latest Full Episode', thumb=R('today.png')),path = 'MSNBC-TDY-PODCAST-M4V'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('today.png')), name=MSNBC_URL + '18424824/device/rss/vp/26184891', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Honda & Cathy Lee", thumb=R('today.png')), name=MSNBC_URL + '26316687/device/rss/vp/26184891', title2='Honda & Cathy Lee'))
-  return dir
-  
-def TS_News(sender):
-  dir = MediaContainer(title2='News')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('today.png')), name=MSNBC_URL + '22828010/device/rss/vp/26184891', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Politics", thumb=R('today.png')), name=MSNBC_URL + '25274211/device/rss/vp/26184891', title2='Politics'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Tales of Survival", thumb=R('today.png')), name=MSNBC_URL + '26316706/device/rss/vp/26184891', title2='Tales of Survival'))
-  return dir
-
-def TS_Concert(sender):
-  dir = MediaContainer(title2='Concert Series')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('today.png')), name=MSNBC_URL + '21659048/device/rss/vp/26184891', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Backstage Pass", thumb=R('today.png')), name=MSNBC_URL + '25723585/device/rss/vp/26184891', title2='Backstage Pass'))
-  return dir
-  
-def TS_Diet(sender):
-  dir = MediaContainer(title2='Diet & Health')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('today.png')), name=MSNBC_URL + '22828130/device/rss/vp/26184891', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Nutrition with Joy Bauer", thumb=R('today.png')), name=MSNBC_URL + '25887307/device/rss/vp/26184891', title2='Nutrition with Joy Bauer'))
-  return dir
-
-
-def TS_Entertainment(sender):
-  dir = MediaContainer(title2='Entertainment')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips", thumb=R('today.png')), name=MSNBC_URL + '21658676/device/rss/vp/26184891', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Critics Class", thumb=R('today.png')), name=MSNBC_URL + '26316665/device/rss/vp/26184891', title2='Critics Class'))
   return dir
 
 def TS_Fashion(sender):
@@ -454,20 +410,42 @@ def N_Weather():
 
 def StripTags(str):
   return re.sub(r'<[^<>]+>', '', str)
-
-def GetThumb(path):
-  try:
-    path = path.replace('.thumb.jpg', '.ss_full.jpg')
-    image = HTTP.Request(path, cacheTime=CACHE_1MONTH).content
-    return DataObject(image, 'image/jpeg')
-  except:
-    return R(ICON)
-
-def GetVideo(sender, episodeid):
-  path = "http://www.msnbc.msn.com/default.cdnx/id/%s/displaymode/1157?t=.flv"%episodeid
-  return Redirect(path)
   
-def GetLatestEpisode(sender, path):
-  return Redirect(XML.ElementFromURL('http://podcastfeeds.nbcnews.com/audio/podcast/%s.xml'%path).xpath('//enclosure')[0].get('url'))
+  
+  '''
+    title = feed.entries[0].title
+    desc = feed.entries[0].description
+    duration = int(feed.entries[0].rte_duration['ms'])
+    thumb = feed.entries[0].media_thumbnail['url']
+    link = feed.entries[0].link
+    
+    
+  for video in XML.ElementFromURL(name, errors="ignore").xpath('//item', namespaces=MSNBC_NAMESPACE):
+    if video.find('link').text.startswith('http://ads') == False :
+      title = video.find('title').text
+      link = video.find('link').text
+      if '#' in link:
+        episodeid = link.split('#')[1]
+      else:
+        episodeid = link.split('/')[-2]
 
-###################################################################################################
+      if title.count("Presented By:") > 0:
+        continue
+      date = Datetime.ParseDate(video.find('pubDate').text).strftime('%a %b %d, %Y')
+      try:
+        thumbpath = video.xpath('media:content', namespaces=MSNBC_NAMESPACE)[0].get('url')
+      except:
+        thumbpath = ''
+
+      summary = StripTags(video.find('description').text)
+
+      dir.Append(Function(VideoItem(GetVideo, title=title[7:], subtitle=date, summary=summary, thumb=Function(GetThumb, path = thumbpath)),episodeid = episodeid))
+
+  if (len(dir) == 0):
+    return MessageContainer("Empty Category","This category does not contain any video.")
+  else:
+    return dir
+
+    feed = RSS.FeedFromURL(url)
+    '''
+ 
