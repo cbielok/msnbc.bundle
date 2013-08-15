@@ -108,7 +108,7 @@ HARDBALL = [
   {'title'  :  'Slideshow',     'link'  :  '29058266/device/rss/vp/29279101'},  {'title'  :  'Big Number',      'link'  :  '29058274/device/rss/vp/29279101'}
 ]
 # rss feeds for US News
-US_NEWS = [
+NEWS_US = [
   {'title'  :  'Latest Clips',      'link'  :  '21426262/device/rss'},  {'title'  :  'Crime & Courts',      'link'  :  '21427653/device/rss'},
   {'title'  :  'Education',         'link'  :  '23600346/device/rss'},  {'title'  :  'The Elkhart Project', 'link'  :  '29637267/device/rss'},
   {'title'  :  'Environment',       'link'  :  '21427657/device/rss'},  {'title'  :  'Faith"',              'link'  :  '23600340/device/rss'},
@@ -116,6 +116,76 @@ US_NEWS = [
   {'title'  :  'Race & Ethnicity',  'link'  :  '21427673/device/rss'},  {'title'  :  'Security',            'link'  :  '21427678/device/rss'},
   {'title'  :  'Weird News',        'link'  :  '18424731/device/rss'}
 ]
+# rss feeds for World News
+NEWS_WORLD = [
+  {'title'  :  'Latest Clips',          'link'  :  '21426473/device/rss'},  {'title'  :  'Americas',                'link'  :  '21427766/device/rss'},
+  {'title'  :  'Africa',                'link'  :  '21427760/device/rss'},  {'title'  :  'Asia-Pacific',            'link'  :  '21427768/device/rss'},
+  {'title'  :  'Conflict in Iraq',      'link'  :  '21427754/device/rss'},  {'title'  :  'Europe',                  'link'  :  '21427850/device/rss'},
+  {'title'  :  'South & Central Asia',  'link'  :  '21427861/device/rss'},  {'title'  :  'Middle East & N. Africa', 'link'  :  '21427857/device/rss'},
+  {'title'  :  'Terrorism',             'link'  :  '21427756/device/rss'},  {'title'  :  'Wonderful World',         'link'  :  '21427651/device/rss'}
+]
+# rss feeds for Business News
+NEWS_BUSINESS = [
+  {'title'  :  'Latest Clips',  'link'  :  '18424694/device/rss'},  {'title'  :  'Stock and Economy',   'link'  :  '21427890/device/rss'},
+  {'title'  :  'U.S. Business', 'link'  :  '21427903/device/rss'},  {'title'  :  'Autos',               'link'  :  '21427924/device/rss'},
+  {'title'  :  'Real Estate',   'link'  :  '21427971/device/rss'},  {'title'  :  'Retail',              'link'  :  '21427996/device/rss'},
+  {'title'  :  'Careers',       'link'  :  '21427991/device/rss'},  {'title'  :  'Personal Finance',    'link'  :  '21427918/device/rss'},
+  {'title'  :  'Small Business','link'  :  '21427920/device/rss'},  {'title'  :  'Your Business',       'link'  :  '18424833/device/rss'}
+]
+# rss feeds for Politics News
+NEWS_POLITICS = [
+  {'title'  :  'Latest Clips',  'link'  :  '18424734/device/rss'},  {'title'  :  'The White House',  'link'  :  '21427723/device/rss'},
+  {'title'  :  'Capitol Hill',  'link'  :  '21427731/device/rss'}
+]
+# rss feeds for Entertainment News
+NEWS_ENTERTAINMENT = [
+  {'title'  :  'Latest Clips',      'link'  :  '18424692/device/rss'},  {'title'  :  'Access Hollywood',  'link'  :  '20418142/device/rss'},
+  {'title'  :  'Celebrities',       'link'  :  '21428100/device/rss'},  {'title'  :  'Keeping Tabs',      'link'  :  '20498047/device/rss'},
+  {'title'  :  'Lifestyle',         'link'  :  '21428119/device/rss'},  {'title'  :  'Movies',            'link'  :  '18424697/device/rss'},
+  {'title'  :  'Music',             'link'  :  '21428116/device/rss'},  {'title'  :  'Television',        'link'  :  '21428108/device/rss'},
+  {'title'  :  'Scoop',             'link'  :  '28184387/device/rss/vp/28159725'}
+]
+# rss feeds for Health News
+NEWS_HEALTH = [
+  {'title'  :  'Latest Clips',      'link'  :  '21427299/device/rss'},  {'title'  :  'Aging',             'link'  :  '21428203/device/rss'},
+  {'title'  :  'Animal Tracks',     'link'  :  '18424682/device/rss'},  {'title'  :  'Cancer',            'link'  :  '21428191/device/rss'},
+  {'title'  :  'Diet & Nutrition',  'link'  :  '21428136/device/rss'},  {'title'  :  'Fitness',           'link'  :  '21428178/device/rss'},
+  {'title'  :  'Food Safety',       'link'  :  '30018791/device/rss'},  {'title'  :  'Health Care',       'link'  :  '30018753/device/rss'},
+  {'title'  :  'Heart Health',      'link'  :  '21428183/device/rss'},  {'title'  :  'Kids & Parenting',  'link'  :  '21428155/device/rss'},
+  {'title'  :  'Men\'s Health")',   'link'  :  '21428151/device/rss'},  {'title'  :  'Mental Health',     'link'  :  '21428162/device/rss'},
+  {'title'  :  'Pet Health',        'link'  :  '21428208/device/rss'},  {'title'  :  'Sexual Health',     'link'  :  '21428170/device/rss'},
+  {'title'  :  'Skin & Beauty',     'link'  :  '21480182/device/rss'},  {'title'  :  'Women\'s Health',   'link'  :  '21428143/device/rss'}
+]
+# rss feeds for Sports News
+NEWS_SPORTS = [
+  {'title'  :  'Latest Sports',     'link'  :  '21426493/device/rss'},                              {'title'  :  'MMA',             'link'  :  'http://nbcsports.msnbc.com/id/21428080/device/rss'},
+  {'title'  :  'MLB',               'link'  :  'http://nbcsports.msnbc.com/id/21428015/device/rss'},{'title'  :  'NASCAR/Motors',   'link'  :  'http://nbcsports.msnbc.com/id/22114938/device/rss'},
+  {'title'  :  'NBA',               'link'  :  'http://nbcsports.msnbc.com/id/21428039/device/rss'},{'title'  :  'NCAA Football',   'link'  :  'http://nbcsports.msnbc.com/id/21428047/device/rss'},
+  {'title'  :  'NCAA Hoops',        'link'  :  'http://nbcsports.msnbc.com/id/21428068/device/rss'},{'title'  :  'NFL',             'link'  :  'http://nbcsports.msnbc.com/id/21428022/device/rss'},
+  {'title'  :  'NHL',               'link'  :  'http://nbcsports.msnbc.com/id/21428025/device/rss'},{'title'  :  'PGA',             'link'  :  'http://nbcsports.msnbc.com/id/21428026/device/rss'},
+  {'title'  :  'Horse Racing',      'link'  :  'http://nbcsports.msnbc.com/id/21428075/device/rss'},{'title'  :  'Tennis',          'link'  :  'http://nbcsports.msnbc.com/id/21428033/device/rss'},
+  {'title'  :  'Sports Oddities',   'link'  :  'http://nbcsports.msnbc.com/id/23017283/device/rss'},{'title'  :  'Mad Dog Minute',  'link'  :  'http://nbcsports.msnbc.com/id/23017809/device/rss'},
+  {'title'  :  'Matty Blake',       'link'  :  'http://nbcsports.msnbc.com/id/23258082/device/rss'}
+]
+# rss feeds for Tech News
+NEWS_TECH = [
+  {'title'  :  'Latest Clips',  'link'  :  '18424747/device/rss'},  {'title'  :  'Games',               'link'  :  '26560891/device/rss'},
+  {'title'  :  'Science',       'link'  :  '21428316/device/rss'},  {'title'  :  'Space',               'link'  :  '18424741/device/rss'},
+  {'title'  :  'Technology',    'link'  :  '21428240/device/rss'},  {'title'  :  'Red Tape Chronicals', 'link'  :  '28780760/device/rss'}
+]
+# rss feeds for Travel News
+NEWS_TRAVEL = [
+  {'title'  :  'Latest Clips',  'link'  :  '21427411/device/rss'},  {'title'  :  'Travel Tips',  'link'  :  '26560980/device/rss'}
+]
+# rss feeds for Weather
+WEATHER = [
+  {'title'  :  'Latest Clips',          'link'  :  '25198763/device/rss'},  {'title'  :  'National Forecasts',    'link'  :  '30331543/device/rss'},
+  {'title'  :  'Regional Forecasts',    'link'  :  '30331544/device/rss'},  {'title'  :  'Top Local Forecasts',   'link'  :  '30331545/device/rss'},
+  {'title'  :  'Vacation Forecasts',    'link'  :  '30331546/device/rss'},  {'title'  :  'Forecast Earth',        'link'  :  '30331549/device/rss'},
+  {'title'  :  'Epic Conditions',       'link'  :  '30332550/device/rss'},  {'title'  :  'Weather Changed History','link'  :  '30331551/device/rss'}
+]
+
+
 ###################################################################################################
 def Start():
   ObjectContainer.title1 = 'MSNBC'
@@ -214,145 +284,16 @@ def Today():
 @route(PREFIX + '/news')
 def News():
   oc = ObjectContainer(title2='All News')
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= US_NEWS, title2="U.S. News"), title="U.S. News")))
-  '''
-  dir.Append(Function(DirectoryItem(N_World,          title="World news")))
-  dir.Append(Function(DirectoryItem(N_Business,       title="Business")))
-  dir.Append(Function(DirectoryItem(N_Politics,       title="Politics")))
-  dir.Append(Function(DirectoryItem(N_Entertainment,  title="Entertainment")))
-  dir.Append(Function(DirectoryItem(N_Health,         title="Health")))
-  dir.Append(Function(DirectoryItem(N_Sports,         title="Sports")))
-  dir.Append(Function(DirectoryItem(N_Tech,           title="Tech & Science")))
-  dir.Append(Function(DirectoryItem(N_Travel,         title="Travel")))
-  dir.Append(Function(DirectoryItem(N_Weather,        title="Weather")))
-  '''
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_US, title2="U.S. News"), title="U.S. News")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_WORLD, title2="World News"), title="World News")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_BUSINESS, title2="Business"), title="Business")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_POLITICS, title2="Politics"), title="Politics")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_ENTERTAINMENT, title2="Entertainment"), title="Entertainment")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_HEALTH, title2="Health"), title="Health")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_SPORTS, title2="Sports"), title="Sports")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_TECH, title2="Tech & Science"), title="Tech & Science")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_TRAVEL, title2="Travel"), title="Travel")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= WEATHER, title2="Weather"), title="Weather")))
   return oc
-
-@route(PREFIX + '/newsworld')
-def N_World():
-  dir = MediaContainer(title2='World News')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='21426473/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Americas"), name=MSNBC_URL + '21427766/device/rss', title2='Americas'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Africa"), name=MSNBC_URL + '21427760/device/rss', title2='Africs'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Asia-Pacific"), name=MSNBC_URL + '21427768/device/rss', title2='Asia-Pacific'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Conflict in Iraq"), name=MSNBC_URL + '21427754/device/rss', title2='Conflict in Iraq'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Europe"), name=MSNBC_URL + '21427850/device/rss', title2='Europe'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="South & Central Asia"), name=MSNBC_URL + '21427861/device/rss', title2='South & Central Asia'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Middle East & N. Africa"), name=MSNBC_URL + '21427857/device/rss', title2='Middle East & N. Africa'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Terrorism"), name=MSNBC_URL + '21427756/device/rss', title2='Terrorism'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Wonderful World"), name=MSNBC_URL + '21427651/device/rss', title2='Wonderful World'))
-  return dir
-
-@route(PREFIX + '/newsbusiness')
-def N_Business():
-  dir = MediaContainer(title2='Business')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='18424694/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Stock and Economy"), name=MSNBC_URL + '21427890/device/rss', title2='Stocks and Economy'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="U.S. Business"), name=MSNBC_URL + '21427903/device/rss', title2='U.S. Business'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Autos"), name=MSNBC_URL + '21427924/device/rss', title2='Autos'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Real Estate"), name=MSNBC_URL + '21427971/device/rss', title2='Real Estate'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Retail"), name=MSNBC_URL + '21427996/device/rss', title2='Retail'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Careers"), name=MSNBC_URL + '21427991/device/rss', title2='Careers'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Personal Finance"), name=MSNBC_URL + '21427918/device/rss', title2='Personal Finance'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Small Business"), name=MSNBC_URL + '21427920/device/rss', title2='Small Business'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Your Business"), name=MSNBC_URL + '18424833/device/rss', title2='Your Business'))
-  return dir
-
-@route(PREFIX + '/newspolitics')
-def N_Politics():
-  dir = MediaContainer(title2='Politics')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='18424734/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="The White House"), name=MSNBC_URL + '21427723/device/rss', title2='The White House'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Capitol Hill"), name=MSNBC_URL + '21427731/device/rss', title2='Capitol Hill'))
-  dir.Append(Function(DirectoryItem(Morning_Joe,      title="Morning Joe", thumb=R('joe.png'))))
-  dir.Append(Function(DirectoryItem(Hardball,         title="Hardball", thumb=R('hardball.jpeg'))))
-  dir.Append(Function(DirectoryItem(Meet_The_Press,   title="Meet The Press", thumb=R('meet_the_press.png'))))
-  return dir
-
-@route(PREFIX + '/newsentertainment')
-def N_Entertainment():
-  dir = MediaContainer(title2='Entertainment')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='18424692/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Scoop", thumb=R('joe.png')), name=MSNBC_URL + '28184387/device/rss/vp/28159725', title2='Scoop'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Celebrities"), name=MSNBC_URL + '21428100/device/rss', title2='Celebrities'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Television"), name=MSNBC_URL + '21428108/device/rss', title2='Television'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Movies"), name=MSNBC_URL + '18424697/device/rss', title2='Movies'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Music"), name=MSNBC_URL + '21428116/device/rss', title2='Music'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Lifestyle"), name=MSNBC_URL + '21428119/device/rss', title2='Lifestyle'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Access Hollywood"), name=MSNBC_URL + '20418142/device/rss', title2='Access Hollywoody'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Keeping Tabs"), name=MSNBC_URL + '20498047/device/rss', title2='Keeping Tabs'))
-  return dir
-
-@route(PREFIX + '/newshealth')
-def N_Health():
-  dir = MediaContainer(title2='Health')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='21427299/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Diet & Nutrition"), name=MSNBC_URL + '21428136/device/rss', title2='Diet & Nutrition'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Women's Health"), name=MSNBC_URL + '21428143/device/rss', title2="Women's Health"))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Men's Health"), name=MSNBC_URL + '21428151/device/rss', title2="Men's Health"))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Kids & Parenting"), name=MSNBC_URL + '21428155/device/rss', title2='Kids & Parenting'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Health Care"), name=MSNBC_URL + '30018753/device/rss', title2='Health Care'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Food Safety"), name=MSNBC_URL + '30018791/device/rss', title2='Food Safety'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Sexual Health"), name=MSNBC_URL + '21428170/device/rss', title2='Sexual Health'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Pet Health"), name=MSNBC_URL + '21428208/device/rss', title2='Pet Health'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Fitness"), name=MSNBC_URL + '21428178/device/rss', title2='Fitness'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Heart Health"), name=MSNBC_URL + '21428183/device/rss', title2='Heart Health'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Mental Health"), name=MSNBC_URL + '21428162/device/rss', title2='Mental Health'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Cancer"), name=MSNBC_URL + '21428191/device/rss', title2='Cancer'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Aging"), name=MSNBC_URL + '21428203/device/rss', title2='Aging'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Skin & Beauty"), name=MSNBC_URL + '21480182/device/rss', title2='Skin & Beauty'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Animal Tracks"), name=MSNBC_URL + '18424682/device/rss', title2='Animal Tracks'))
-  return dir
-
-@route(PREFIX + '/newssports')
-def N_Sports():
-  dir = MediaContainer(title2='Sports')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Sports"), name='http://pheedo.msnbc.msn.com/id/21426493/device/rss/', title2='Latest Sports'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NFL"), name='http://nbcsports.msnbc.com/id/21428022/device/rss', title2='NFL'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Baseball"), name='http://nbcsports.msnbc.com/id/21428015/device/rss', title2='Baseball'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NCAA Hoops"), name='http://nbcsports.msnbc.com/id/21428068/device/rss', title2='NCAA Hoops'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NBA"), name='http://nbcsports.msnbc.com/id/21428039/device/rss', title2='NBA'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Golf"), name='http://nbcsports.msnbc.com/id/21428026/device/rss', title2='Golf'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NHL"), name='http://nbcsports.msnbc.com/id/21428025/device/rss', title2='NHL'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="MMA"), name='http://nbcsports.msnbc.com/id/21428080/device/rss', title2='MMA'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NCAA Football"), name='http://nbcsports.msnbc.com/id/21428047/device/rss', title2='NCAA Football'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Horse Racing"), name='http://nbcsports.msnbc.com/id/21428075/device/rss', title2='Horse Racing'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="NASCAR/Motors"), name='http://nbcsports.msnbc.com/id/22114938/device/rss', title2='NASCAR/Motors'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Tennis"), name='http://nbcsports.msnbc.com/id/21428033/device/rss', title2='Tennis'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Sports Oddities"), name='http://nbcsports.msnbc.com/id/23017283/device/rss', title2='Sports Oddities'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Mad Dog Minute"), name='http://nbcsports.msnbc.com/id/23017809/device/rss', title2='Mad Dog Minute'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Matty Blake"), name='http://nbcsports.msnbc.com/id/23258082/device/rss', title2='Matty Blake'))
-  return dir
-
-@route(PREFIX + '/newstech')
-def N_Tech():
-  dir = MediaContainer(title2='Tech')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='18424747/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Space"), name=MSNBC_URL + '18424741/device/rss', title2='Space'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Science"), name=MSNBC_URL + '21428316/device/rss', title2='Science'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Technology"), name=MSNBC_URL + '21428240/device/rss', title2='Technology'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Games"), name=MSNBC_URL + '26560891/device/rss', title2='Games'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Red Tape Chronicals"), name=MSNBC_URL + '28780760/device/rss', title2='Red Tape Chronicals'))
-  return dir
-
-@route(PREFIX + '/newstravel')
-def N_Travel():
-  dir = MediaContainer(title2='Travel')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name='21427411/device/rss/', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Travel Tips"), name=MSNBC_URL + '26560980/device/rss', title2='Travel Tips'))
-  return dir
-
-@route(PREFIX + '/newsweather')
-def N_Weather():
-  dir = MediaContainer(title2='Weather')
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Latest Clips"), name=MSNBC_URL + '25198763/device/rss', title2='Latest Clips'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="National Forecasts"), name=MSNBC_URL + '30331543/device/rss', title2='National Forecasts'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Regional Forecasts"), name=MSNBC_URL + '30331544/device/rss', title2='Regional Forecasts'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Top Local Forecasts"), name=MSNBC_URL + '30331545/device/rss', title2='Top Local Forecasts'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Vacation Forecasts"), name=MSNBC_URL + '30331546/device/rss', title2='Vacation Forecasts'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Forecast Earth"), name=MSNBC_URL + '30331549/device/rss', title2='Forecast Earth'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Epic Conditions"), name=MSNBC_URL + '30332550/device/rss', title2='Epic Conditions'))
-  dir.Append(Function(DirectoryItem(GetVideosRSS,     title="Weather Changed History"), name=MSNBC_URL + '30331551/device/rss', title2='Weather Changed History'))
-  return dir
 
 ########################### END All News END #####################################################
