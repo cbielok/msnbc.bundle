@@ -191,7 +191,6 @@ def Start():
   ObjectContainer.title1 = 'MSNBC'
   ObjectContainer.art = R(ART)
   DirectoryObject.thumb = R(ICON)
-
   HTTP.CacheTime = CACHE_1HOUR
 
 ###################################################################################################
