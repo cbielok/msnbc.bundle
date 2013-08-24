@@ -209,7 +209,7 @@ def MainMenu():
   oc.add(DirectoryObject(key=Callback(Today), title="Today Show", thumb=R('today.png')))
   oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=ZEITGEIST, title2="ZeitGeist", thumb='zeitgeist.png'),
     title="ZeitGeist", thumb=R('zeitgeist.png')))
-  oc.extend(FeedDirectory(feed_list=RSS_SHOWS).objects)
+  #oc.extend(FeedDirectory(feed_list=RSS_SHOWS).objects)
   oc.objects.sort(key = lambda obj: obj.title)
   return oc
 
@@ -275,7 +275,7 @@ def Today():
   oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_FASHION, title1=title1, title2="Fashion", thumb=thumb), title="Fashion"))
   oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_WEDDINGS, title1=title1, title2="Relationships", thumb=thumb), title="Relationships"))
   oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_SPECIAL, title1=title1, title2="Special Series", thumb=thumb), title="Special Series"))
-  oc.extend(FeedDirectory(feed_list=TODAY_SHOW, title2=title1, thumb=thumb))
+  #oc.extend(FeedDirectory(feed_list=TODAY_SHOW, title2=title1, thumb=thumb))
   oc.objects.sort(key = lambda obj: obj.title)
   return oc
 
