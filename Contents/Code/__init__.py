@@ -2,7 +2,7 @@ MSNBC_NAMESPACE   = {'v':'http://www.w3.org/2005/Atom', 'media':'http://search.y
 MSNBC_URL         = 'http://rss.msnbc.msn.com/id/'
 LATEST_URL        = 'http://podcastfeeds.nbcnews.com/audio/podcast/%s.xml' #path
 
-PREFIX = "/video/msnbc",
+PREFIX = "/video/msnbc"
 
 ART = 'art-default.jpg'
 ICON = 'icon-default.jpg'
@@ -197,7 +197,7 @@ def Start():
 def MainMenu():
   oc = ObjectContainer()
   oc.add(DirectoryObject(key=Callback(News), title="All News"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=HARDBALL, title2="Hardball", thumb='meet_the_press.png',
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=HARDBALL, title2="Hardball", thumb='meet_the_press.png'),
     title="Hardball", thumb=R('hardball.jpeg')))
   oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=MEET_THE_PRESS, title2="Meet The Press", thumb='meet_the_press.png',
     latest_episode='MSNBC-MTP-NETCAST-M4V'), title="Meet The Press", thumb=R('meet_the_press.png')))
@@ -209,14 +209,14 @@ def MainMenu():
   oc.add(DirectoryObject(key=Callback(Today), title="Today Show", thumb=R('today.png')))
   oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=ZEITGEIST, title2="ZeitGeist", thumb='zeitgeist.png'),
     title="ZeitGeist", thumb=R('zeitgeist.png')))
-  oc.extend(FeedDirectory(feed_list=RSS_SHOWS))
+  oc.extend(FeedDirectory(feed_list=RSS_SHOWS).objects)
   oc.objects.sort(key = lambda obj: obj.title)
   return oc
 
 ###################################################################################################
 @route(PREFIX + '/videorss')
-def GetVideosRSS(rss_url, title1='MSNBC', title2='Videos'):
-  oc = ObjectContainer(titl1=title1, title2=title2)
+def GetVideoRSS(rss_url, title1='MSNBC', title2='Videos'):
+  oc = ObjectContainer(title1=title1, title2=title2)
   if not rss_url.startswith('http://'):
     rss_url = MSNBC_URL + rss_url
   feed = RSS.FeedFromURL(rss_url)
@@ -284,16 +284,16 @@ def Today():
 @route(PREFIX + '/news')
 def News():
   oc = ObjectContainer(title2='All News')
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_US, title2="U.S. News"), title="U.S. News")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_WORLD, title2="World News"), title="World News")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_BUSINESS, title2="Business"), title="Business")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_POLITICS, title2="Politics"), title="Politics")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_ENTERTAINMENT, title2="Entertainment"), title="Entertainment")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_HEALTH, title2="Health"), title="Health")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_SPORTS, title2="Sports"), title="Sports")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_TECH, title2="Tech & Science"), title="Tech & Science")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_TRAVEL, title2="Travel"), title="Travel")))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= WEATHER, title2="Weather"), title="Weather")))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_US, title2="U.S. News"), title="U.S. News"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_WORLD, title2="World News"), title="World News"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_BUSINESS, title2="Business"), title="Business"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_POLITICS, title2="Politics"), title="Politics"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_ENTERTAINMENT, title2="Entertainment"), title="Entertainment"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_HEALTH, title2="Health"), title="Health"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_SPORTS, title2="Sports"), title="Sports"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_TECH, title2="Tech & Science"), title="Tech & Science"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= NEWS_TRAVEL, title2="Travel"), title="Travel"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list= WEATHER, title2="Weather"), title="Weather"))
   return oc
 
 ########################### END All News END #####################################################
