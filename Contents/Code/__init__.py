@@ -220,17 +220,26 @@ def GetVideoRSS(rss_url, title1='MSNBC', title2='Videos'):
   if not rss_url.startswith('http://'):
     rss_url = MSNBC_URL + rss_url
   feed = RSS.FeedFromURL(rss_url)
-  default_thumb = feed.image
+  try:
+    default_thumb = feed.image
+  except:
+    default_thumb = feed.channel.image['href']
   for video in feed.entries:
     title = video.title
-    summary = video.description
-    date = video.updated
+    summary = String.StripTags(video.description)
+    date = Datetime.ParseDate(video.updated).date()
     link = video.link
-    duration = Datetime.MillisecondsFromString(video.itunes_duration)
+    try:
+      duration = Datetime.MillisecondsFromString(video.itunes_duration)
+    except:
+      duration = None
     try:
       thumb = video.image
     except:
-      thumb = default_thumb
+      try:
+        thumb = video.media_content[0]['url']
+      except:
+        thumb = default_thumb
     oc.add(VideoClipObject(url=link, title=title, summary=summary, originally_available_at=date, duration=duration,
       thumb=Resource.ContentsOfURLWithFallback(url=thumb.replace('.thumb.jpg', '.ss_full.jpg'), fallback=thumb)))
 
