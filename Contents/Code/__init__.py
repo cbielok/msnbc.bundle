@@ -15,7 +15,7 @@ RSS_SHOWS = [
   {'title'  : 'The Ed Show',            'link'  : '30012522/device/rss/vp/3096434'},  {'title'  : 'Jansing & Co',           'link'  : '41894601/device/rss'},
   {'title'  : 'The Last Word',          'link'  : '38865210/device/rss/vp/3096434'},  {'title'  : 'Martin Bashir',          'link'  : '41894607/device/rss/'},
   {'title'  : 'Melissa Harris-Perry',   'link'  : '46404075/device/rss/vp/47722962'}, {'title'  : 'MSNBC TV',               'link'  : '18424721/device/rss/vp/3096434'},
-  {'title'  : 'Politics Nation',        'link'  : '47728749/device/rss/vp/45755884'}, {'title'  : 'Up With Steve Kornacki', 'link'  : '44507040/device/rss/vp/46979738'},
+  {'title'  : 'Politics Nation',        'link'  : '51398615/device/rss/vp/45755884'}, {'title'  : 'Up With Steve Kornacki', 'link'  : '44507040/device/rss/vp/46979738'},
   {'title'  : 'Way Too Early',          'link'  : '32178079/device/rss/vp/3096434'},  {'title'  : 'Weekends with Alex Witt','link'  : '51071113/device/rss'}
 ]
 # rss feeds for the Rachel Maddow Show 
