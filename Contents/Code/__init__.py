@@ -9,14 +9,14 @@ ICON = 'icon-default.jpg'
 
 # rss feeds for the main menu shows
 RSS_SHOWS = [
-  {'title'  : 'All In',                 'link'  : '51362794/device/rss/vp/3096434'},  {'title'  : 'Andrea Mitchell Reports','link'  : '34510812/device/rss/vp/3096434'},
-  {'title'  : 'The Cycle',              'link'  : '47905980/device/rss'},             {'title'  : 'Daily Rundown',          'link'  : '34419168/device/rss/vp/3096434'},
-  {'title'  : 'Dateline',               'link'  : '18424719/device/rss/'},            {'title'  : 'The Dylan Ratigan Show', 'link'  : '34419165/device/rss/vp/3096434'},
-  {'title'  : 'The Ed Show',            'link'  : '30012522/device/rss/vp/3096434'},  {'title'  : 'Jansing & Co',           'link'  : '41894601/device/rss'},
-  {'title'  : 'The Last Word',          'link'  : '38865210/device/rss/vp/3096434'},  {'title'  : 'Martin Bashir',          'link'  : '41894607/device/rss/'},
-  {'title'  : 'Melissa Harris-Perry',   'link'  : '46404075/device/rss/vp/47722962'}, {'title'  : 'MSNBC TV',               'link'  : '18424721/device/rss/vp/3096434'},
-  {'title'  : 'Politics Nation',        'link'  : '51398615/device/rss/vp/45755884'}, {'title'  : 'Up With Steve Kornacki', 'link'  : '44507040/device/rss/vp/46979738'},
-  {'title'  : 'Way Too Early',          'link'  : '32178079/device/rss/vp/3096434'},  {'title'  : 'Weekends with Alex Witt','link'  : '51071113/device/rss'}
+  {'title'  : 'All In',                 'link'  : '51362794/device/rss/vp/3096434'},  {'title'  : 'Andrea Mitchell Reports',  'link'  : '34510812/device/rss/vp/3096434'},
+  {'title'  : 'The Cycle',              'link'  : '47905980/device/rss'},             {'title'  : 'Daily Rundown',            'link'  : '34419168/device/rss/vp/3096434'},
+  {'title'  : 'Dateline',               'link'  : '18424719/device/rss/'},            {'title'  : 'Disrupt with Karen Finney','link'  : '52199227/device/rss/vp/3096434'},
+  {'title'  : 'The Ed Show',            'link'  : '30012522/device/rss/vp/3096434'},  {'title'  : 'Jansing & Co',             'link'  : '41894601/device/rss'},
+  {'title'  : 'The Last Word',          'link'  : '38865210/device/rss/vp/3096434'},  {'title'  : 'Martin Bashir',            'link'  : '41894607/device/rss/'},
+  {'title'  : 'Melissa Harris-Perry',   'link'  : '46404075/device/rss/vp/47722962'}, {'title'  : 'MSNBC TV',                 'link'  : '18424721/device/rss/vp/3096434'},
+  {'title'  : 'Politics Nation',        'link'  : '44263878/device/rss/vp/45755884'}, {'title'  : 'Up With Steve Kornacki',   'link'  : '51398615/device/rss/vp/46979738'},
+  {'title'  : 'Way Too Early',          'link'  : '32178079/device/rss/vp/3096434'},  {'title'  : 'Weekends with Alex Witt',  'link'  : '51071113/device/rss'}
 ]
 # rss feeds for the Rachel Maddow Show 
 MADDOW_FEEDS = [
