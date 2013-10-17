@@ -4,9 +4,6 @@ LATEST_URL        = 'http://podcastfeeds.nbcnews.com/audio/podcast/%s.xml' #path
 
 PREFIX = "/video/msnbc"
 
-ART = 'art-default.jpg'
-ICON = 'icon-default.jpg'
-
 # rss feeds for the main menu shows
 RSS_SHOWS = [
   {'title'  : 'All In',                 'link'  : '51362794/device/rss/vp/3096434'},  {'title'  : 'Andrea Mitchell Reports',  'link'  : '34510812/device/rss/vp/3096434'},
@@ -189,27 +186,20 @@ WEATHER = [
 ###################################################################################################
 def Start():
   ObjectContainer.title1 = 'MSNBC'
-  ObjectContainer.art = R(ART)
-  DirectoryObject.thumb = R(ICON)
   HTTP.CacheTime = CACHE_1HOUR
 
 ###################################################################################################
-@handler(PREFIX, 'MSNBC', thumb=ICON, art=ART)
+@handler(PREFIX, 'MSNBC')
 def MainMenu():
   oc = ObjectContainer()
   oc.add(DirectoryObject(key=Callback(News), title="All News"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=HARDBALL, title2="Hardball", thumb='meet_the_press.png'),
-    title="Hardball", thumb=R('hardball.jpeg')))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=MEET_THE_PRESS, title2="Meet The Press", thumb='meet_the_press.png',
-    latest_episode='MSNBC-MTP-NETCAST-M4V'), title="Meet The Press", thumb=R('meet_the_press.png')))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=MORNING_JOE, title2="Morning Joe", thumb='joe.png',
-    latest_episode='MSNBC-SCARBOROUGH-NETCAST-M4V'), title="Morning Joe", thumb=R('joe.png')))
-  oc.add(DirectoryObject(key=Callback(Nightly_News), title="Nightly News with Brian Williams", thumb=R('nightly_news.png')))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=MADDOW_FEEDS, title2='The Rachel Maddow Show', thumb='maddow.png',
-    latest_episode='MSNBC-MADDOW-NETCAST-M4V'), title="The Rachel Maddow Show", thumb=R('maddow.png')))
-  oc.add(DirectoryObject(key=Callback(Today), title="Today Show", thumb=R('today.png')))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=ZEITGEIST, title2="ZeitGeist", thumb='zeitgeist.png'),
-    title="ZeitGeist", thumb=R('zeitgeist.png')))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=HARDBALL, title2="Hardball"), title="Hardball"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=MEET_THE_PRESS, title2="Meet The Press", latest_episode='MSNBC-MTP-NETCAST-M4V'), title="Meet The Press"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=MORNING_JOE, title2="Morning Joe", latest_episode='MSNBC-SCARBOROUGH-NETCAST-M4V'), title="Morning Joe"))
+  oc.add(DirectoryObject(key=Callback(Nightly_News), title="Nightly News with Brian Williams"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=MADDOW_FEEDS, title2='The Rachel Maddow Show', latest_episode='MSNBC-MADDOW-NETCAST-M4V'), title="The Rachel Maddow Show"))
+  oc.add(DirectoryObject(key=Callback(Today), title="Today Show"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=ZEITGEIST, title2="ZeitGeist"), title="ZeitGeist"))
   oc.extend(FeedDirectory(feed_list=RSS_SHOWS))
   oc.objects.sort(key = lambda obj: obj.title)
   return oc
@@ -251,41 +241,41 @@ def GetVideoRSS(rss_url, title1='MSNBC', title2='Videos'):
    
 ###################################################################################################
 @route(PREFIX + '/feeds', feed_list=list)
-def FeedDirectory(feed_list, title1='MSNBC',title2='Feeds',thumb=ICON, latest_episode=None):
+def FeedDirectory(feed_list, title1='MSNBC', title2='Feeds', latest_episode=None):
+
   oc = ObjectContainer(title1=title1, title2=title2)
+
   if latest_episode:
-      oc.add(VideoClipObject(url=LATEST_URL % latest_episode, title='Latest Full Episode', thumb=R(thumb)))
+     oc.add(VideoClipObject(url=LATEST_URL % latest_episode, title='Latest Full Episode'))
+
   for show in feed_list:
-    oc.add(DirectoryObject(key=Callback(GetVideoRSS, rss_url=show['link'], title1=title2, title2=show['title']), title=show['title'], thumb=R(thumb)))
+    oc.add(DirectoryObject(key=Callback(GetVideoRSS, rss_url=show['link'], title1=title2, title2=show['title']), title=show['title']))
+
   return oc
   
 ########################### Nighly News ############################################################
 @route(PREFIX + '/nightlynews')
 def Nightly_News():
   title2='Nightly News with Brian Williams'
-  thumb=R('nightly_news.png')
-  oc = FeedDirectory(feed_list=NIGHTLY_NEWS, title2='Nightly News with Brian Williams', thumb='nightly_news.png', latest_episode='MSNBC-NN-NETCAST-M4V')
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=NN_WEB, title1="Nightly News", title2="Web Only", thumb=thumb), title="Web Only", thumb=thumb))
+  oc = FeedDirectory(feed_list=NIGHTLY_NEWS, title2='Nightly News with Brian Williams', latest_episode='MSNBC-NN-NETCAST-M4V')
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=NN_WEB, title1="Nightly News", title2="Web Only"), title="Web Only"))
   return oc
   
 ########################### END Nightly News END ###################################################
 ########################### Today Show ##############################################################
 @route(PREFIX + '/today')
 def Today():
-  thumb = "today.png"
   title1= "Today Show"
-  DirectoryObject.thumb = R(thumb)
   oc = ObjectContainer(title2=title1)
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_LATEST, title1=title1, title2="Latest Program", thumb=thumb,
-    latest_episode='MSNBC-TDY-PODCAST-M4V'), title="Latest Program"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_NEWS, title1=title1, title2="News", thumb=thumb), title="News"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_CONCERT, title1=title1, title2="Concert Series", thumb=thumb), title="Concert Series"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_DIET, title1=title1, title2="Diet & Health", thumb=thumb), title="Diet & Health"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_ENTERTAINMENT, title1=title1, title2="Entertainment", thumb=thumb), title="Entertainment"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_FASHION, title1=title1, title2="Fashion", thumb=thumb), title="Fashion"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_WEDDINGS, title1=title1, title2="Relationships", thumb=thumb), title="Relationships"))
-  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_SPECIAL, title1=title1, title2="Special Series", thumb=thumb), title="Special Series"))
-  oc.extend(FeedDirectory(feed_list=TODAY_SHOW, title2=title1, thumb=thumb))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_LATEST, title1=title1, title2="Latest Program", latest_episode='MSNBC-TDY-PODCAST-M4V'), title="Latest Program"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_NEWS, title1=title1, title2="News"), title="News"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_CONCERT, title1=title1, title2="Concert Series"), title="Concert Series"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_DIET, title1=title1, title2="Diet & Health"), title="Diet & Health"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_ENTERTAINMENT, title1=title1, title2="Entertainment"), title="Entertainment"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_FASHION, title1=title1, title2="Fashion"), title="Fashion"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_WEDDINGS, title1=title1, title2="Relationships"), title="Relationships"))
+  oc.add(DirectoryObject(key=Callback(FeedDirectory, feed_list=TS_SPECIAL, title1=title1, title2="Special Series"), title="Special Series"))
+  oc.extend(FeedDirectory(feed_list=TODAY_SHOW, title2=title1))
   oc.objects.sort(key = lambda obj: obj.title)
   return oc
 
