@@ -111,8 +111,8 @@ HARDBALL = [
 NEWS_US = [
   {'title'  :  'Latest Clips',      'link'  :  '21426262/device/rss'},  {'title'  :  'Crime & Courts',      'link'  :  '21427653/device/rss'},
   {'title'  :  'Education',         'link'  :  '23600346/device/rss'},  {'title'  :  'The Elkhart Project', 'link'  :  '29637267/device/rss'},
-  {'title'  :  'Environment',       'link'  :  '21427657/device/rss'},  {'title'  :  'Faith"',              'link'  :  '23600340/device/rss'},
-  {'title'  :  'Life"',             'link'  :  '21427662/device/rss'},  {'title'  :  'Military',            'link'  :  '21427669/device/rss'},
+  {'title'  :  'Environment',       'link'  :  '21427657/device/rss'},  {'title'  :  'Faith',               'link'  :  '23600340/device/rss'},
+  {'title'  :  'Life',              'link'  :  '21427662/device/rss'},  {'title'  :  'Military',            'link'  :  '21427669/device/rss'},
   {'title'  :  'Race & Ethnicity',  'link'  :  '21427673/device/rss'},  {'title'  :  'Security',            'link'  :  '21427678/device/rss'},
   {'title'  :  'Weird News',        'link'  :  '18424731/device/rss'}
 ]
